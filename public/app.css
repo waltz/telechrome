@@ -1,0 +1,84 @@
+@font-face {
+    font-family: "Camcorder";
+    src: url("/camcorder.otf") format("opentype");
+}
+html, body {
+    margin: 0;
+    padding: 0;
+}
+#title {
+    font-family: "Camcorder", courier, sans-serif;
+    background-color: black;
+    margin: 5px;
+    padding: 0;
+    z-index: 999;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-transform: uppercase;
+}
+#title h1 {
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    font-size: 36px;
+}
+#skip {
+    color: #33ff33;
+    font-size: 44px;
+    letter-spacing: -11px;
+    margin-right: 10px;
+}
+#container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    z-index: 1;
+}
+
+.blink {
+    -webkit-animation: blink .75s linear infinite;
+    -moz-animation: blink .75s linear infinite;
+    -ms-animation: blink .75s linear infinite;
+    -o-animation: blink .75s linear infinite;
+    animation: blink .75s linear infinite;
+}
+
+@-webkit-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-moz-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-ms-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-o-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}

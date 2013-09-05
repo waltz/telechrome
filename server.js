@@ -4,10 +4,13 @@ var app     = express()
 var Shred = require("shred")
 var shred = new Shred()
 
-app.get("/", function (req, res) {
-  console.log("incoming booger")
-  res.send("sup")
-})
+// serve static files
+app.use(express.static('public'))
+
+// app.get("/", function (req, res) {
+//   console.log("incoming booger")
+//   res.send("sup")
+// })
 
 app.get("/next_video.json", function (req, res) {
   console.log("humbling proxxxy")
