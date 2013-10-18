@@ -4,24 +4,22 @@ $(function () {
     loadVideo($)
   })
   loadVideo($)
+
+  // Listen for Vimeo player events.
+  window.addEventListener('message', function (message) {
+    console.log('Got a message from the Vimeo player.');
+    console.log(message);
+    var data = JSON.parse(message.data)
+
+    if (data.event === 'ready') {
+      console.log("Vimeo player is ready.")
+      var iframe = $("#" + data.player_id)[0]
+      var player = $f(iframe)
+      player.addEvent('finish', function () { loadVideo() })
+      player.api('play')
+    }
+  }, false);
 })
-
-// Listen for Vimeo player events.
-window.addEventListener('message', function (message) {
-  console.log('Got a message from the Vimeo player.');
-  console.log(message);
-
-  switch (JSON.parse(message.data).event) {
-    case 'ready':
-      console.log("Vimeo player is ready.");
-      break;
-
-    case 'finish':
-      console.log("Vimeo player is finished.");
-      // loadVideo();
-      break;
-  }
-}, false);
 
 // Handle YouTube player state changes.
 function onPlayerStateChange (newState) {
@@ -41,27 +39,27 @@ function onYouTubePlayerReady () {
 
 function loadVideo () {
 	$.getJSON('/next_video.json').done(function (data) {
-    data = { src: "vimeo", id: "64978838", title: "Glory Days" }; // Vimeo test.
+    // data = { src: "vimeo", id: "64978838", title: "Glory Days" }; // Vimeo test.
 
     console.log("Currently playing: " + JSON.stringify(data));
 
-    var player_id = "container",
+    var container_id = "container",
         url       = "";
 
 		if (data.src == 'youtube') {
       url = "http://www.youtube.com/v/" + data.id +
             "?version=3&enablejsapi=1&playerapiid=player1" +
             "&iv_load_policy=3&autoplay=1&controls=0&wmode=opaque";
-      swfobject.embedSWF(url, player_id, "100%", "100%", "9", null, null,
+      swfobject.embedSWF(url, container_id, "100%", "100%", "9", null, null,
                                        {
                                          allowScriptAccess: "always",
                                          wmode:             "opaque"
                                        },
-                                       { id: player_id });
+                                       { id: container_id });
 		}
     else if (data.src == 'vimeo') {
-      url = "http://player.vimeo.com/video/" + data.id + "?api=1&player_id=vimeo_player";
-      $("#" + player_id).html('<iframe id="vimeo_player" src="' + url + '" width="100%" height="100%" frameborder="0"></iframe>');
+      url = "http://player.vimeo.com/video/" + data.id + "?api=1&player_id=vimeo_player"
+      $("#" + container_id).html('<iframe id="vimeo_player" src="' + url + '" width="100%" height="100%" frameborder="0"></iframe>')
 		}
     else {
       console.log("unknown src spec")
